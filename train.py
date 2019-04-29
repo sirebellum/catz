@@ -16,7 +16,7 @@ import models
 run = wandb.init(project='catz')
 config = run.config
 
-config.num_epochs = 20
+config.num_epochs = 50
 config.batch_size = 32
 config.img_dir = "images"
 config.height = 96
