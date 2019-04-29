@@ -11,10 +11,12 @@ from PIL import Image
 import numpy as np
 from keras import backend as K
 
+import models
+
 run = wandb.init(project='catz')
 config = run.config
 
-config.num_epochs = 2
+config.num_epochs = 20
 config.batch_size = 32
 config.img_dir = "images"
 config.height = 96
@@ -61,7 +63,7 @@ def my_generator(batch_size, img_dir):
         yield (input_images, output_images)
         counter += batch_size
 
-
+''' Default model
 model = Sequential()
 model.add(Conv2D(32, (3, 3), activation='relu', padding='same',
                  input_shape=(config.height, config.width, 5 * 3)))
@@ -69,6 +71,9 @@ model.add(MaxPooling2D(2, 2))
 model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
 model.add(UpSampling2D((2, 2)))
 model.add(Conv2D(3, (3, 3), activation='relu', padding='same'))
+'''
+
+model = models.default(config)
 
 
 def perceptual_distance(y_true, y_pred):
